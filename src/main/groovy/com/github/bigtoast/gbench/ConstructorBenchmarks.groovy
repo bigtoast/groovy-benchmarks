@@ -9,15 +9,12 @@ class ConstructorBenchmarks {
 		String name
 		Integer age
 		
+		public Duder(){}
+		
 		public Duder( String name, Integer age ) {
 			this.name = name
 			this.age = age
 		}		
-	}
-	
-	public static class DuderSansConstructor {
-		String name
-		Integer age
 	}
 	
 	public static class ConstructorBenchmark extends SimpleBenchmark {
@@ -32,15 +29,24 @@ class ConstructorBenchmarks {
 		
 		public void timeNamedConstructor( int reps ) {
 			for ( int i = 0; i < reps; i++ ) {
-				new DuderSansConstructor(age:i, name:dude)
+				new Duder(age:i, name:dude)
 			}
 		}
 		
 		public void timeMapConstructor( int reps ) {
 			for ( int i = 0; i < reps; i++ ) {
-				new DuderSansConstructor([age:i, name:dude])
+				new Duder([age:i, name:dude])
 			}
 		}
+		
+		public void timeNoConstructor( int reps ){
+			for ( int i = 0; i < reps; i++ ) {
+				def d = new Duder()
+				d.name = dude
+				d.age = i
+			}
+		}
+		
 		
 	}
 	
